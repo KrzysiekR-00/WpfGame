@@ -1,0 +1,79 @@
+﻿<Page x:Class="Project2.Presentation.Views.Pages.Gameplay.PrepareBattle"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project2.Presentation.Views.Pages" 
+      xmlns:usercontrols="clr-namespace:Project2.Presentation.Views.UserControls" 
+      xmlns:viewmodels="clr-namespace:Project2.Presentation.ViewModels.Gameplay" 
+      xmlns:converters="clr-namespace:Project2.Presentation.Views.Converters" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:PrepareBattleViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="PrepareBattle">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <converters:InverseBool x:Key="InverseBool"/>
+        <converters:IsLessThanToVisibility x:Key="IsLessThanToVisibility"/>
+    </Page.Resources>
+    
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextTitle}" Margin="25" Text="Prepare battle" HorizontalAlignment="Center"/>
+
+        <Button DockPanel.Dock="Bottom" Style="{StaticResource ButtonLight}" Padding="50, 10" Margin="15" Content="Start battle" HorizontalAlignment="Center" Command="{Binding StartBattle}" IsEnabled="{Binding IsBattleReady, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource TextHeader}" HorizontalAlignment="Center" Margin="15" Text="Crew"/>
+            <TextBlock Grid.Column="2" Grid.Row="0" Style="{StaticResource TextHeader}" HorizontalAlignment="Center" Margin="15">
+                <Run Text="Battle squad"/>
+                <Run Text="{Binding BattleSquadCharacters.Count, Mode=OneWay}"/>
+                <Run Text="/"/>
+                <Run Text="{Binding ProperNumberOfMembersInSquad, Mode=OneWay}"/>
+            </TextBlock>
+            <DockPanel Grid.Column="0" Grid.Row="1">
+                <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextNormal}" Margin="15" Text="Crew list is empty" HorizontalAlignment="Center" Visibility="{Binding AvaibleCharacters.Count, Converter={StaticResource IsLessThanToVisibility}, ConverterParameter=1}"/>
+                <usercontrols:CharactersList 
+                    Margin="15" 
+                    ItemsSource="{Binding AvaibleCharacters}" 
+                    SelectedItem="{Binding SelectedAvaibleCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    HorizontalAlignment="Center" 
+                    ContractVisibility="Collapsed"
+                />
+            </DockPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <usercontrols:CharacterDetails Margin="15" HorizontalAlignment="Center" Character="{Binding SelectedCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Style="{StaticResource ButtonLight}" Padding="50, 10" Margin="15" Content="Add to battle squad" HorizontalAlignment="Center" Command="{Binding MoveSelectedCharacterToBattleSquad}" Visibility="{Binding SelectedCharacterIsNotInBattleSquad, Converter={StaticResource BoolToVisibility}, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsBattleReady, Converter={StaticResource InverseBool}, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Style="{StaticResource ButtonLight}" Padding="50, 10" Margin="15" Content="Remove from battle squad" HorizontalAlignment="Center" Command="{Binding MoveSelectedCharacterOutOfBattleSquad}" Visibility="{Binding SelectedCharacterIsInBattleSquad, Converter={StaticResource BoolToVisibility}, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <DockPanel Grid.Column="2" Grid.Row="1">
+                <usercontrols:CharactersList
+                    DockPanel.Dock="Bottom"
+                    Margin="15" 
+                    ItemsSource="{Binding EnemySquad}" 
+                    HorizontalAlignment="Center"
+                    ContractVisibility="Collapsed"
+                    IsHitTestVisible="False"
+                />
+                <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource TextHeader}" HorizontalAlignment="Center" Margin="15" Text="Enemy squad"/>
+                <usercontrols:CharactersList 
+                    Margin="15" 
+                    ItemsSource="{Binding BattleSquadCharacters}" 
+                    SelectedItem="{Binding SelectedBattleSquadCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    HorizontalAlignment="Center"
+                    ContractVisibility="Collapsed"
+                />
+            </DockPanel>
+        </Grid>
+        
+    </DockPanel>
+</Page>

@@ -1,0 +1,34 @@
+﻿<Page x:Class="Project2.Presentation.Views.Pages.Gameplay.UnemployedList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project2.Presentation.Views.Pages"
+      xmlns:usercontrols="clr-namespace:Project2.Presentation.Views.UserControls" 
+      xmlns:viewmodels="clr-namespace:Project2.Presentation.ViewModels.Gameplay" 
+      xmlns:converters="clr-namespace:Project2.Presentation.Views.Converters" 
+      d:DataContext="{d:DesignInstance Type=viewmodels:UnemployedListViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UnemployedList">
+
+    <Page.Resources>
+        <converters:IsLessThanToVisibility x:Key="IsLessThanToVisibility"/>
+        <converters:NullToFalse x:Key="NullToFalse"/>
+    </Page.Resources>
+    
+    <Grid>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextTitle}" Margin="25" Text="Hire" HorizontalAlignment="Center"/>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextHeader}" HorizontalAlignment="Center" Margin="25" Text="Unemployed mercenaries"/>
+            <DockPanel HorizontalAlignment="Center">
+                <DockPanel DockPanel.Dock="Left">
+                    <Button DockPanel.Dock="Bottom" Style="{StaticResource ButtonLight}" Padding="50, 10" Margin="25" Content="Propose a contract" HorizontalAlignment="Center" Command="{Binding ProposeContract}" IsEnabled="{Binding SelectedCharacter, Converter={StaticResource NullToFalse}}"/>
+                    <usercontrols:CharacterDetails DockPanel.Dock="Left" Margin="25" Character="{Binding SelectedCharacter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+                <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextNormal}" Margin="25" Text="Unemployed list is empty" HorizontalAlignment="Center" Visibility="{Binding UnemployedCharacters.Length, Converter={StaticResource IsLessThanToVisibility}, ConverterParameter=1}"/>
+                <usercontrols:CharactersList Margin="25" ItemsSource="{Binding UnemployedCharacters}" ContractVisibility="Collapsed" HorizontalAlignment="Center" SelectedItem="{Binding SelectedCharacter, Mode=TwoWay}"/>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</Page>

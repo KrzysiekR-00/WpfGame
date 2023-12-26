@@ -1,0 +1,35 @@
+﻿<Page x:Class="Project2.Presentation.Views.Pages.Gameplay.FinancesOverview"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project2.Presentation.Views.Pages.Gameplay" 
+      xmlns:gameplay="clr-namespace:Project2.Presentation.ViewModels.Gameplay" 
+      d:DataContext="{d:DesignInstance Type=gameplay:FinancesOverviewViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FinancesOverview">
+
+    <Grid>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextTitle}" Margin="25" Text="Finances" HorizontalAlignment="Center"/>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextHeader}" Margin="25" HorizontalAlignment="Center">
+                <Run Text="Balance:"/>
+                <Run Text="{Binding Balance, Mode=OneWay, StringFormat=N2}"/>
+            </TextBlock>
+            <DataGrid 
+                Margin="25"
+                ItemsSource="{Binding Operations}" 
+                Style="{StaticResource DataGridNormal}" 
+                CellStyle="{StaticResource DataGridCellBiggerMargin}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Turn" Binding="{Binding Turn}" />
+                    <DataGridTextColumn Header="Amount" Binding="{Binding FormattedAmount}" SortMemberPath="Amount" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Page>

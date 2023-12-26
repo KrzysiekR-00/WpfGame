@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <PackageIcon></PackageIcon>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <ApplicationIcon>Presentation\Views\Resources\Images\helmet1.ico</ApplicationIcon> 
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="helmet1.ico" />
+    <None Remove="helmet1.png" />
+    <None Remove="stars1.png" />
+    <None Remove="stars2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameRules\GameRules.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Presentation\Views\Resources\Images\helmet1.ico" />
+    <Resource Include="Presentation\Views\Resources\Images\helmet1.png" />
+    <Resource Include="Presentation\Views\Resources\Images\stars1.png" />
+    <Resource Include="Presentation\Views\Resources\Images\stars2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Presentation\Views\Resources\Styles\Combobox.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Presentation\Views\Resources\Styles\DataGrid.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

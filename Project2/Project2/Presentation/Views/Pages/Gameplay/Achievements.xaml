@@ -1,0 +1,44 @@
+﻿<Page x:Class="Project2.Presentation.Views.Pages.Gameplay.Achievements"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project2.Presentation.Views.Pages.Gameplay" 
+      xmlns:gameplay="clr-namespace:Project2.Presentation.ViewModels.Gameplay" 
+      d:DataContext="{d:DesignInstance Type=gameplay:AchievementsViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Achievements">
+
+    <Grid>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextTitle}" Margin="25" Text="Achievements" HorizontalAlignment="Center"/>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextHeader}" Margin="25" Text="Battles results" HorizontalAlignment="Center"/>
+            <UniformGrid Columns="2" DockPanel.Dock="Top" HorizontalAlignment="Center">
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="Victory:"/>
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="{Binding GameState.BattlesResultsStats.Victories, Mode=OneWay}"/>
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="Undecided:"/>
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="{Binding GameState.BattlesResultsStats.Undecided, Mode=OneWay}"/>
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="Defeat:"/>
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="{Binding GameState.BattlesResultsStats.Defeats, Mode=OneWay}"/>
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="Victory %:"/>
+                <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="{Binding GameState.BattlesResultsStats.PercentageVictories, Mode=OneWay, StringFormat=N2}"/>
+            </UniformGrid>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextHeader}" Margin="25" Text="Achievements" HorizontalAlignment="Center"/>
+            <DataGrid 
+                Margin="25"
+                ItemsSource="{Binding Achievements}" 
+                Style="{StaticResource DataGridNormal}" 
+                CellStyle="{StaticResource DataGridCellBiggerMargin}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Turn limit" Binding="{Binding TurnLimit}" />
+                    <DataGridTextColumn Header="Reward" Binding="{Binding Reward}" SortMemberPath="Reward" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</Page>

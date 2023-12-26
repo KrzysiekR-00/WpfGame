@@ -1,0 +1,52 @@
+﻿<Page x:Class="Project2.Presentation.Views.Pages.Gameplay.ContractNegotiation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project2.Presentation.Views.Pages.Gameplay"
+      xmlns:usercontrols="clr-namespace:Project2.Presentation.Views.UserControls" 
+      xmlns:gameplay="clr-namespace:Project2.Presentation.ViewModels.Gameplay" 
+      xmlns:converters="clr-namespace:Project2.Presentation.Views.Converters" 
+      d:DataContext="{d:DesignInstance Type=gameplay:ContractNegotiationViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="ContractNegotiation">
+
+    <Page.Resources>
+        <converters:InverseBool x:Key="InverseBool"/>
+        <converters:IntToVisibility x:Key="IntToVisibility"/>
+    </Page.Resources>
+    
+    <Grid>
+        <DockPanel>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource TextTitle}" Margin="25" Text="Contract negotiation" HorizontalAlignment="Center"/>
+            <Grid Margin="25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Style="{StaticResource TextHeader}" Margin="10" Text="Mercenary"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Style="{StaticResource TextHeader}" Margin="10" Text="Proposal"/>
+                <usercontrols:CharacterDetails Grid.Column="0" Grid.Row="1" Margin="10" Character="{Binding Character, Mode=OneWay}"/>
+                <DockPanel Grid.Column="1" Grid.Row="1">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Style="{StaticResource ButtonLight}" Padding="50, 10" Margin="10" Content="Walk away" HorizontalAlignment="Center" Command="{Binding WalkAway}"/>
+                        <Button Style="{StaticResource ButtonLight}" Padding="50, 10" Margin="10" Content="Sign" HorizontalAlignment="Center" Command="{Binding Sign}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="Contract length in turns:" HorizontalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="{Binding ProposalLength}" HorizontalAlignment="Center"/>
+                        <Slider Margin="10" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="Both" Value="{Binding ProposalLength}" Minimum="{Binding ContractNegotiation.MinContractLength}" Maximum="{Binding ContractNegotiation.MaxContractLength}"/>
+                        <TextBlock Style="{StaticResource TextNormal}" Margin="10" FontWeight="Bold" Text="The contract will expire after this turn!" HorizontalAlignment="Center" Visibility="{Binding ProposalLength, Converter={StaticResource IntToVisibility}, ConverterParameter=1}"/>
+                        <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="Expected wage:" HorizontalAlignment="Center"/>
+                        <TextBlock Style="{StaticResource TextNormal}" Margin="10" Text="{Binding ExpectedWage, StringFormat=N2}" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </DockPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Page>
