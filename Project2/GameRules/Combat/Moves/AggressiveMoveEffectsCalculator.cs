@@ -13,7 +13,9 @@ namespace GameRules.Combat.Moves
 
         internal float GetDamageValue(ICombatable target)
         {
-            return _aggressor.BaseAttributes.Damage * GetEnergyModifier() / target.BaseAttributes.Armor;
+            var armor = target.BaseAttributes.Armor;
+            armor = Math.Max(armor, 1);
+            return _aggressor.BaseAttributes.Damage * GetEnergyModifier() / armor;
         }
 
         internal float GetEnergyCostValue()
