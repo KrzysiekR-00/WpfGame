@@ -23,7 +23,7 @@ namespace GameRules.Achievements
                 }
                 else
                 {
-                    if(gameState.Turn == achievement.TurnLimit) achievement.Status = AchievementStatus.Failure;
+                    if (gameState.Turn == achievement.TurnLimit) achievement.Status = AchievementStatus.Failure;
                 }
             }
 

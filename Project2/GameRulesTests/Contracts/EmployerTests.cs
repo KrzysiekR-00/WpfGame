@@ -38,8 +38,8 @@ namespace GameRulesTests.Contracts
         [DataRow(10, 10, 10)]
         [DataRow(0, 10, 5)]
         public void RecalculateReputation_ReputationAfterCharacterAddition_CorrectResult(
-            int startReputation, 
-            int employerToAddReputation, 
+            int startReputation,
+            int employerToAddReputation,
             int expectedReputationAfterRecalculation)
         {
             var employer = ContractsHelpers.CreateEmployer(startReputation);

@@ -1,5 +1,4 @@
 ﻿using GameRules.Combat;
-using GameRules.Combat.BattleSquads;
 using GameRulesTests.TestsHelpers;
 
 namespace GameRulesTests.Combat

@@ -33,7 +33,7 @@ namespace GameRules.Teams.Factories
         private static Contract CreateContract(Employer employer, Character character, int contractsExpirationTurn)
         {
             var wage = WageCalculator.GetWage(
-                character.ExpectedEmployerReputation, 
+                character.ExpectedEmployerReputation,
                 TeamReputation,
                 contractsExpirationTurn
                 );

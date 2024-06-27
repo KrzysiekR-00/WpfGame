@@ -21,7 +21,6 @@ namespace Project2.Presentation.ViewModels
         internal MainWindowViewModel(Navigator navigator) : base(navigator)
         {
             var assembly = Assembly.GetExecutingAssembly().GetName();
-            //Title = string.Format("{0} {1}", assembly.Name, assembly.Version?.ToString());
             Title = string.Format("{0} {1}", "Space Mercenaries Manager", assembly.Version?.ToString());
 
             _navigator.CurrentViewModelChanged += () => { CurrentViewModel = _navigator.CurrentViewModel; };

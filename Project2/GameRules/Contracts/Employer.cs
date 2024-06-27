@@ -16,7 +16,7 @@ namespace GameRules.Contracts
         {
             Reputation = startReputation;
         }
-        
+
         internal void AddContract(Contract contract)
         {
             _contracts.Add(contract);

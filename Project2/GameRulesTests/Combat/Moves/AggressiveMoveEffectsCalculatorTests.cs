@@ -1,5 +1,4 @@
-﻿using GameRules.Combat.BattleSquads;
-using GameRules.Combat.Combatables;
+﻿using GameRules.Combat.Combatables;
 using GameRules.Combat.Moves;
 using GameRulesTests.TestsHelpers;
 
